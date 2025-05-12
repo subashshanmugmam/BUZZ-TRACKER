@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0d1117;
+    color: #fff;
+    overflow-x: hidden;
+  }
+  
+  .bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background-color: rgba(24, 29, 39, 0.9);
+    height: 100vh;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    transition: left 0.4s ease;
+    padding: 20px;
+    z-index: 10;
+  }
+  
+  .sidebar.show {
+    left: 0;
+  }
+  
+  .sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #facc15;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    margin: 20px 0;
+  }
+  
+  .sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+  
+  .sidebar ul li.active a,
+  .sidebar ul li a:hover {
+    color: #facc15;
+  }
+  
+  /* Hamburger */
+  .hamburger {
+    font-size: 28px;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    color: white;
+    cursor: pointer;
+    z-index: 11;
+  }
+  
+  /* Main Content */
+  .main-content {
+    margin-left: 80px;
+    padding: 60px 40px;
+    backdrop-filter: blur(4px);
+  }
+  
+  .main-content h1 {
+    color: #facc15;
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .owner-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 20, 60, 0.3);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  
+  .owner-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(239, 195, 3, 0.841);
+  }
+  
+  .owner-info {
+    color: #ffffff;
+    flex: 1;
+  }
+  
+  .owner-photo {
+    width: 200px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(144, 122, 26, 0.447);
+    box-shadow: 0 0 15px rgba(218, 202, 26, 0.834);
+    margin-left: 20px;
+  }
+  
+  .owner-card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease-out forwards;
+  }
+  
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

@@ -1,0 +1,362 @@
+{% extends "registration_base.html" %}
+
+{% block title %}Creative Animated Showcase{% endblock %}
+
+{% block theme_styles %}
+{% endblock %}
+
+{% block submit_btn_class %}{% endblock %}
+
+{% block additional_styles %}
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+<style>
+    body {
+        height: 100vh;
+        overflow: hidden; /* Changed from auto to hidden */
+        font-family: 'Courier New', monospace;
+        margin: 0;
+        padding: 0;
+    }
+
+    .rotated-background {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 100vh; /* Becomes height after rotation */
+        height: 100vw; /* Becomes width after rotation */
+        background: url('background.gif') no-repeat center center;
+        background-size: cover;
+        transform: translate(-50%, -50%) rotate(-90deg); /* Changed from 90deg to -90deg */
+        z-index: -10; /* Behind parallax wrapper */
+        pointer-events: none;
+    }
+    
+    .invalid-feedback {
+        color: #863a29;
+        font-weight: bold;
+    }
+    
+    .parallax-wrapper {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        perspective: 1500px;
+        z-index: -1;
+    }
+    .parallax-item {
+        position: absolute;
+        transform-style: preserve-3d;
+        transform: translate(-50%, -50%);
+        will-change: transform;
+        pointer-events: none;
+    }
+    .parallax-item img {
+        display: block;
+        width: 100%;
+    }
+    
+    @keyframes element-float {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+            transform: translateY(-8px) rotate(1deg);
+        }
+        50% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        75% {
+            transform: translateY(8px) rotate(-1deg);
+        }
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+    }
+    
+    @keyframes element-float-reverse {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+            transform: translateY(8px) rotate(-1deg);
+        }
+        50% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        75% {
+            transform: translateY(-8px) rotate(1deg);
+        }
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+    }
+    
+    @keyframes element-rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        50% {
+            transform: rotate(2deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
+    @keyframes element-pulse {
+        0% {
+            opacity: 0.7;
+            transform: scale(0.98);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.02);
+        }
+        100% {
+            opacity: 0.7;
+            transform: scale(0.98);
+        }
+    }
+    
+    .parallax-item.element-1 img {
+        animation: element-float 7s ease-in-out infinite, element-pulse 5s ease-in-out infinite 1s;
+    }
+    
+    .parallax-item.element-2 img {
+        animation: element-float 9s ease-in-out infinite;
+        animation-delay: 0.5s;
+    }
+    
+    .parallax-item.element-3 img {
+        animation: element-float 8s ease-in-out infinite;
+        animation-delay: 1s;
+    }
+
+    .parallax-item.element-4 img {
+        animation: element-float 10s ease-in-out infinite;
+        animation-delay: 1.5s;
+    }
+    
+    .parallax-item.element-5 img {
+        animation: element-float-reverse 9s ease-in-out infinite;
+        animation-delay: 0.8s;
+    }
+    
+    .parallax-item.element-6 img {
+        animation: element-rotate 12s ease-in-out infinite;
+        animation-delay: 1.2s;
+    }
+    
+    .parallax-item.element-7 img {
+        animation: element-float 11s ease-in-out infinite;
+        animation-delay: 0.3s;
+    }
+    
+    .parallax-item.element-8 img {
+        animation: element-float-reverse 8.5s ease-in-out infinite;
+        animation-delay: 1.7s;
+    }
+    
+    .parallax-item.element-9 img {
+        animation: element-float 10.5s ease-in-out infinite;
+        animation-delay: 0.9s;
+    }
+
+    .parallax-item.element-10 img {
+        animation: element-float-reverse 9.5s ease-in-out infinite;
+        animation-delay: 1.1s;
+    }
+    
+    .parallax-item.element-11 img {
+        animation: element-float 8.8s ease-in-out infinite;
+        animation-delay: 0.6s;
+    }
+
+    .parallax-item.element-12 img {
+        animation: element-float-reverse 10s ease-in-out infinite 0.2s, element-pulse 6s ease-in-out infinite 0.5s;
+    }
+
+    .parallax-item.element-13 img {
+        animation: element-rotate 15s linear infinite, element-pulse 4s ease-in-out infinite;
+    }
+
+    .parallax-item.element-14 img {
+        animation: element-float 9s ease-in-out infinite 0.7s;
+    }
+    
+    .parallax-item.element-1 {
+        width: 150px;
+        top: 25%;
+        left: 20%;
+        z-index: -2;
+    }
+    .parallax-item.element-2 {
+        width: 180px;
+        top: 65%;
+        left: 85%;
+        z-index: -3;
+    }
+    .parallax-item.element-3 {
+        width: 130px;
+        top: 75%;
+        left: 30%;
+        z-index: -4;
+    }
+    .parallax-item.element-4 {
+        width: 160px;
+        top: 20%;
+        left: 70%;
+        z-index: -5;
+    }
+    .parallax-item.element-5 {
+        width: 140px;
+        top: 40%;
+        left: 12%;
+        z-index: -6;
+    }
+    .parallax-item.element-6 {
+        width: 120px;
+        top: 80%;
+        left: 60%;
+        z-index: -7;
+    }
+    .parallax-item.element-7 {
+        width: 160px;
+        top: 15%;
+        left: 40%;
+        z-index: -8;
+    }
+    .parallax-item.element-8 {
+        width: 140px;
+        top: 50%;
+        left: 90%;
+        z-index: -3;
+    }
+    .parallax-item.element-9 {
+        width: 170px;
+        top: 60%;
+        left: 45%;
+        z-index: -4;
+    }
+    .parallax-item.element-10 {
+        width: 145px;
+        top: 35%;
+        left: 75%;
+        z-index: -5;
+    }
+    
+    .parallax-item.element-11 {
+        width: 130px;
+        top: 85%;
+        left: 15%;
+        z-index: -6;
+    }
+
+    .parallax-item.element-12 {
+        width: 100px;
+        top: 10%;
+        left: 50%;
+        z-index: -1;
+    }
+
+    .parallax-item.element-13 {
+        width: 160px;
+        top: 55%;
+        left: 5%;
+        z-index: -9;
+    }
+
+    .parallax-item.element-14 {
+        width: 125px;
+        top: 70%;
+        left: 70%;
+        z-index: -2;
+    }
+</style>
+{% endblock %}
+
+{% block container_class %}{% endblock %}
+
+{% block additional_content_before %}
+<div class="rotated-background"></div>
+<div class="parallax-wrapper">
+    <div class="parallax-item element-1" data-speedx="-0.03" data-speedy="0.02" data-speedz="0.5" data-rotation="0.8">
+        <img src="bi-theme-elements1.png" class="layer" />
+    </div>
+    <div class="parallax-item element-2" data-speedx="0.04" data-speedy="-0.02" data-speedz="1" data-rotation="-0.5">
+        <img src="bi-theme-elements2.png" class="layer" />
+    </div>
+    <div class="parallax-item element-3" data-speedx="-0.02" data-speedy="0.04" data-speedz="1.5" data-rotation="1">
+        <img src="bi-theme-elements3.png" class="layer" />
+    </div>
+    <div class="parallax-item element-4" data-speedx="0.05" data-speedy="0.01" data-speedz="0.8" data-rotation="-0.7">
+        <img src="bi-theme-elements4.png" class="layer" />
+    </div>
+    <div class="parallax-item element-5" data-speedx="-0.04" data-speedy="-0.03" data-speedz="1.2" data-rotation="0.6">
+        <img src="bi-theme-elements5.png" class="layer" />
+    </div>
+    <div class="parallax-item element-6" data-speedx="0.03" data-speedy="0.05" data-speedz="0.7" data-rotation="-0.3">
+        <img src="bi-theme-elements6.png" class="layer" />
+    </div>
+    <div class="parallax-item element-7" data-speedx="-0.05" data-speedy="-0.01" data-speedz="1.1" data-rotation="0.4">
+        <img src="bi-theme-elements7.png" class="layer" />
+    </div>
+    <div class="parallax-item element-8" data-speedx="0.02" data-speedy="-0.04" data-speedz="0.9" data-rotation="-0.9">
+        <img src="bi-theme-elements8.png" class="layer" />
+    </div>
+    <div class="parallax-item element-9" data-speedx="-0.01" data-speedy="0.03" data-speedz="1.3" data-rotation="0.2">
+        <img src="bi-theme-elements9.png" class="layer" />
+    </div>
+    <div class="parallax-item element-10" data-speedx="0.03" data-speedy="-0.02" data-speedz="1.2" data-rotation="0.3">
+        <img src="bi-theme-elements10.png" class="layer" />
+    </div>
+    <div class="parallax-item element-11" data-speedx="-0.04" data-speedy="0.03" data-speedz="0.8" data-rotation="-0.5">
+        <img src="bi-theme-elements11.png" class="layer" />
+    </div>
+    <div class="parallax-item element-12" data-speedx="0.02" data-speedy="-0.05" data-speedz="0.3" data-rotation="1.2">
+        <img src="bi-theme-elements1.png" class="layer" />
+    </div>
+    <div class="parallax-item element-13" data-speedx="-0.06" data-speedy="0.01" data-speedz="1.8" data-rotation="-1.0">
+        <img src="bi-theme-elements4.png" class="layer" />
+    </div>
+    <div class="parallax-item element-14" data-speedx="0.03" data-speedy="0.04" data-speedz="0.6" data-rotation="0.7">
+        <img src="bi-theme-elements7.png" class="layer" />
+    </div>
+</div>
+{% endblock %}
+
+{% block header_section %}
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+    const parallaxItems = document.querySelectorAll('.parallax-item');
+    document.addEventListener('mousemove', e => {
+        let xValue = e.clientX - window.innerWidth / 2;
+        let yValue = e.clientY - window.innerHeight / 2;
+
+        parallaxItems.forEach(el => {
+            let speedx = parseFloat(el.dataset.speedx);
+            let speedy = parseFloat(el.dataset.speedy);
+            let speedz = parseFloat(el.dataset.speedz);
+            let rotation = parseFloat(el.dataset.rotation);
+
+            let jerkFactor = Math.sin(Date.now() / 3000) * 2;
+            
+            let isInLeft = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1;
+            let zValue = (e.clientX - parseFloat(getComputedStyle(el).left)) * isInLeft * 0.1;
+
+            el.style.transform = `
+                perspective(1500px)
+                translateZ(${zValue * speedz}px)
+                rotateY(${(xValue * rotation * 0.01) + (jerkFactor * rotation * 0.2)}deg)
+                translateX(calc(-50% + ${-xValue * speedx}px))
+                translateY(calc(-50% + ${-yValue * speedy}px))
+            `;
+        });
+    });
+</script>
+{% endblock %}
