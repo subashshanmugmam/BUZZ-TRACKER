@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analyze Buzz | BuzzTracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.89/build/spline-viewer.js"></script>
+  <style>
+    .analyze-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    .analyze-header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .analyze-header h1 {
+      color: #fff;
+      margin: 0;
+      font-size: 2rem;
+    }
+    
+    .cognos-wrapper {
+      width: 75%;
+      height: 75vh;
+      margin: 0 auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .cognos-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 15px;
+    }
+    
+    .back-button {
+      position: absolute;
+      top: 80px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="dashboard-body">
+
+  <!-- 🌌 Spline Background -->
+  <spline-viewer url="https://prod.spline.design/PhNQ4gtbgFXt0s5O/scene.splinecode" class="spline-bg"></spline-viewer>
+
+  <!-- 🧠 Top Bar -->
+  <header class="top-bar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <div class="logo">🐝 BuzzTracker</div>
+  </header>
+
+  <!-- 📂 Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="analyze.html" class="active">Analyze Buzz</a></li>
+      <li><a href="support.html">📞 Support</a></li>
+    </ul>
+  </div>
+
+  <!-- Back Button -->
+  <a href="dashboard.html" class="back-button">← Back to Dashboard</a>
+
+  <!-- 💫 Main Content -->
+  <main class="analyze-container">
+    <div class="analyze-header">
+      <h1>📊 IBM Cognos Analytics Dashboard</h1>
+    </div>
+    
+    <div class="cognos-wrapper">
+      <iframe 
+        class="cognos-iframe"
+        src="https://us3.ca.analytics.ibm.com/bi/?perspective=dashboard&pathRef=.my_folders%2FBUZZ%2BFinal&closeWindowOnLastView=true&ui_appbar=false&ui_navbar=false&shareMode=embedded&action=view&mode=dashboard&subView=model00000196a63100b1_00000000"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </main>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

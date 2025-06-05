@@ -21,19 +21,35 @@
   <!-- 📂 Sidebar -->
   <div class="sidebar" id="sidebar">
     <ul>
+      <li><a href="home.html">Home</a></li>
       <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Analyze Buzz</a></li>
+      <li><a href="analyze.html">Analyze Buzz</a></li>
       <li><a href="support.html">📞 Support</a></li>
+      <li><a href="#" id="logoutButton" class="logout-button"><span class="logout-icon">➔</span> Logout</a></li>
     </ul>
   </div>
 
   <!-- 💫 Main Content -->
   <main class="main-content">
     <h1>Welcome, Naresh!</h1>
-    <button class="analyze-btn">Analyze Buzz</button>
+    <button class="analyze-btn" onclick="window.location.href='analyze.html'">Analyze Buzz</button>
     <p class="coming-soon">More features coming soon...</p>
   </main>
 
   <script src="script.js"></script>
+  <script src="sidebar.js"></script>
+  <script>
+    // Logout functionality
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Clear session storage
+        sessionStorage.removeItem('currentUser');
+        // Redirect to login page
+        window.location.href = 'index.html';
+      });
+    }
+  </script>
 </body>
 </html>

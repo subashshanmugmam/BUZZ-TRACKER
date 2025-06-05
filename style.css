@@ -153,10 +153,59 @@ body.dashboard-body {
     color: #facc15;
     text-decoration: none;
     font-weight: bold;
+    display: flex; /* Align icon and text */
+    align-items: center; /* Vertically center icon and text */
+    padding: 12px 25px; /* Adjusted padding for better spacing */
+    transition: all 0.3s ease;
+    position: relative; /* For pseudo-elements */
+    overflow: hidden; /* To contain the animation */
   }
   
-  .sidebar.show {
+  .sidebar ul li a:hover {
+    background-color: rgba(250, 204, 21, 0.1);
+    color: #fff;
+    transform: translateX(5px);
+  }
+  
+  /* Logout Button Specific Styling */
+  .logout-button {
+    color: #ff7b7b !important; /* Distinct color for logout */
+  }
+  
+  .logout-button .logout-icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: rgba(255, 123, 123, 0.15) !important;
+    color: #ffdddd !important;
+  }
+  
+  .logout-button:hover .logout-icon {
+    transform: rotate(360deg) scale(1.2);
+  }
+  
+  /* Adding an animated underline effect on hover for all sidebar links */
+  .sidebar ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background-color: #facc15; /* Gold color for underline */
+    transition: left 0.4s ease;
+  }
+  
+  .sidebar ul li a:hover::before {
     left: 0;
+  }
+  
+  /* Special underline for logout button */
+  .logout-button::before {
+    background-color: #ff7b7b !important; /* Red color for underline */
   }
   
   /* 💫 Main Content */

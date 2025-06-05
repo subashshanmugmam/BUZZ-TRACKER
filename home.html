@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Buzz Tracker - Home</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* Reset and base styles */
     * {
@@ -13,235 +15,626 @@
       box-sizing: border-box;
     }
     body, html {
-    height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
-    background-color: #0203531f; /* fallback for no iframe */
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      background: #101820; /* Dark charcoal background */
+      scrollbar-width: thin;
+      scrollbar-color: #FEE715 #101820; /* Bright yellow scrollbar on dark charcoal */
     }
 
-    /* Glowing dark glass background */
-    .spline-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    border: none;
-    background: linear-gradient(145deg, #04047a, #010867f6); /* backup glow */
+    /* Custom scrollbar for webkit browsers */
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+    body::-webkit-scrollbar-track {
+      background: #101820;
+    }
+    body::-webkit-scrollbar-thumb {
+      background-color: #FEE715;
+      border-radius: 10px;
+      border: 2px solid #101820;
+    }
+
+    /* Animated background pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(254, 231, 21, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(254, 231, 21, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(254, 231, 21, 0.02) 0%, transparent 50%);
+      z-index: -1;
+      animation: backgroundFloat 20s ease-in-out infinite;
+    }
+
+    @keyframes backgroundFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
     }
 
     /* Sidebar styling */
     .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 220px;
-    height: 100%;
-    background: rgba(2, 38, 110, 0.549)0.4);
-    backdrop-filter: blur(25px);
-    border-right: 1px solid rgba(0, 170, 255, 0.3);
-    box-shadow: 0 0 20px rgba(0, 200, 255, 0.2);
-    padding: 20px;
-    color: #e0f7ff;
-    z-index: 1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100%;
+      background: rgba(16, 24, 32, 0.9); /* Dark charcoal with opacity */
+      backdrop-filter: blur(25px);
+      border-right: 1px solid rgba(254, 231, 21, 0.3); /* Bright yellow border */
+      box-shadow: 0 0 20px rgba(254, 231, 21, 0.15);
+      padding: 20px;
+      color: #e0f7ff;
+      z-index: 1000;
     }
 
-    /* Sidebar navigation */
+    .sidebar nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar nav ul li {
+      margin: 15px 0;
+    }
+
     .sidebar nav ul li a {
-    color: #aeeeff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
+      color: #aeeeff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .sidebar nav ul li a i {
+      margin-right: 10px;
+      width: 20px;
     }
 
     .sidebar nav ul li a:hover,
     .sidebar nav ul li a.active {
-    color: #00ffff;
+      color: #FEE715; /* Bright yellow text on hover/active */
+      background: rgba(254, 231, 21, 0.1);
+      transform: translateX(5px);
     }
 
     /* Main Content Area */
-  .main-content {
-    margin-left: 240px;
-    padding: 40px;
-    height: 100%;
-    overflow-y: auto;
-    background: rgba(29, 2, 116, 0.648);
-    backdrop-filter: blur(25px);
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgba(0, 200, 255, 0.1);
-    color: #ffffff;
-    }
-
-    /* Section Titles and Text */
-    .main-content h1, h2, h3 {
-    color: #00ccff;
-    }
-
-    .main-content p, ul li {
-    color: #e0f7ff;
-    }
-
-    /* Responsive Tweaks */
-    @media (max-width: 768px) {
-    .sidebar {
-    width: 180px;
-    }
-
     .main-content {
-      margin-left: 200px;
+      margin-left: 240px;
+      padding: 40px;
+      height: 100%;
+      overflow-y: auto;
+      background: rgba(16, 24, 32, 0.7); /* Dark charcoal with opacity */
+      backdrop-filter: blur(15px);
+      border-radius: 12px;
+      color: #ffffff;
     }
+
+    /* Intro Card Styling */
+    .intro-card {
+      background: linear-gradient(145deg, rgba(254, 231, 21, 0.1), rgba(254, 231, 21, 0.05));
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(254, 231, 21, 0.3);
+      box-shadow: 0 8px 32px rgba(254, 231, 21, 0.1);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .intro-card h1 {
+      font-size: 2.8em;
+      font-weight: 700;
+      color: #FEE715; /* Bright yellow */
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intro-card h1 i {
+      margin-right: 15px;
+    }
+
+    .intro-card p {
+      font-size: 1.2em;
+      font-style: italic;
+      color: #c5d1e0;
+    }
+
+    /* Slider Container */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: rgba(16, 24, 32, 0.8); /* Dark charcoal with opacity */
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(254, 231, 21, 0.2); /* Bright yellow border */
+      box-shadow: 0 8px 32px rgba(254, 231, 21, 0.06);
+    }
+
+    .slides-wrapper {
+      display: flex;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      height: 100%;
+      will-change: transform;
+    }
+
+    .content-slide {
+      min-width: 100%;
+      flex-shrink: 0;
+      padding: 40px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      background: rgba(16, 24, 32, 0.9); /* Dark charcoal with opacity */
+      backdrop-filter: blur(10px);
+    }
+
+    .content-slide h2 {
+      color: #FEE715; /* Bright yellow */
+      font-size: 2.2em;
+      font-weight: 600;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+    }
+
+    .content-slide h2 i {
+      margin-right: 15px;
+      font-size: 0.9em;
+    }
+
+    .content-slide h3 {
+      color: #FEE715; /* Bright yellow */
+      font-size: 1.4em;
+      margin: 20px 0 15px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .content-slide h3 i {
+      margin-right: 10px;
+      font-size: 0.8em;
+    }
+
+    .content-slide p {
+      color: #c5d1e0;
+      line-height: 1.8;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .content-slide ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content-slide ul li {
+      color: #c5d1e0;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .content-slide ul li::before {
+      content: "•"; /* Replacing the FontAwesome code with a simple bullet point */
+      position: absolute;
+      left: 0;
+      color: #FEE715; /* Bright yellow bullet */
+      font-size: 1.2em;
+      font-family: sans-serif; /* Using standard font instead of Font Awesome */
+    }
+
+    /* Navigation Buttons */
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(254, 231, 21, 0.8); /* Bright yellow with opacity */
+      border: none;
+      color: #101820; /* Dark charcoal text */
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(254, 231, 21, 0.3);
+    }
+
+    .slider-nav:hover {
+      background: rgba(254, 231, 21, 1); /* Solid bright yellow on hover */
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 20px rgba(254, 231, 21, 0.5);
+    }
+
+    .slider-nav:disabled {
+      background: rgba(128, 128, 128, 0.5);
+      cursor: not-allowed;
+      transform: translateY(-50%) scale(0.9);
+    }
+
+    .prev-btn {
+      left: -25px;
+    }
+
+    .next-btn {
+      right: -25px;
+    }
+
+    /* Slide Indicators */
+    .slide-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .indicator.active {
+      background: #FEE715; /* Bright yellow */
+      transform: scale(1.2);
+    }
+
+    /* Dashboard Button */
+    .dashboard-button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .dashboard-button {
+      background: linear-gradient(135deg, #FEE715, #E5D000);
+      color: #101820; /* Dark charcoal text */
+      font-size: 1.3em;
+      font-weight: 600;
+      padding: 18px 35px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(254, 231, 21, 0.3);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .dashboard-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(254, 231, 21, 0.5);
+    }
+
+    .dashboard-button i {
+      margin-left: 10px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 180px;
+      }
+      .main-content {
+        margin-left: 200px;
+        padding: 20px;
+      }
+      .slider-container {
+        height: 400px;
+      }
+      .content-slide {
+        padding: 25px;
+      }
     }
 
     @media (max-width: 480px) {
-    .sidebar {
-      display: none;
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 15px;
+      }
+      .intro-card h1 {
+        font-size: 2.2em;
+      }
     }
-
-    .main-content {
-      margin-left: 0;
-    }
-    }
-
   </style>
 </head>
 <body>
-
-  <!-- Spline Background Animation -->
-  <iframe class="spline-bg" src="https://my.spline.design/nexbotrobotcharacterconcept-n8QMG7WnS6i6jUmIkBqioO2s/" allowfullscreen></iframe>
-
   <!-- Sidebar Navigation -->
   <div class="sidebar">
     <div class="logo">
-      <img src="logo.png" alt="Buzz Tracker Logo">
+      <img src="bi-theme-elements1.png" alt="Buzz Tracker Logo">
     </div>
     <nav>
       <ul>
-        <li><a href="home.html" class="active">Home</a></li>
-        <li><a href="analyze.html">Analyze Buzz</a></li>
-        <li><a href="support.html">Support</a></li>
+        <li><a href="home.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="analyze.html"><i class="fas fa-chart-line"></i> Analyze Buzz</a></li>
+        <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
       </ul>
     </nav>
   </div>
 
   <!-- Main Content -->
   <div class="main-content">
-    <section class="intro">
-      <h1>💡 Buzz Tracker</h1>
+    <!-- Intro Section -->
+    <section class="intro-card">
+      <h1><i class="fas fa-lightbulb"></i> Buzz Tracker</h1>
       <p>"Listen to the noise. Decode the voice. Lead with the insight."</p>
     </section>
 
-    <section class="overview">
-      <h2>🧩 Project Overview</h2>
-      <p>Buzz Tracker is an advanced business intelligence solution designed using IBM Cognos Analytics. It captures, analyzes, and visualizes real-time social media buzz, sentiment shifts, and campaign performance.</p>
-      <p>From brand launches to viral trends, Buzz Tracker transforms digital emotion into strategic direction.</p>
-      <p>“While others scroll endlessly, we listen precisely.”</p>
-    </section>
+    <!-- Sliding Content Container -->
+    <div class="slider-container">
+      <div class="slides-wrapper">
+        <!-- Slide 1: Project Overview -->
+        <div class="content-slide">
+          <h2><i class="fas fa-puzzle-piece"></i> Project Overview</h2>
+          <p>Buzz Tracker is an advanced business intelligence solution designed using IBM Cognos Analytics.<br> It captures, analyzes, and visualizes real-time social media buzz, sentiment shifts, and campaign performance.</p>
+          <p>From brand launches to viral trends, Buzz Tracker transforms digital emotion into strategic direction.</p>
+          <p><em>"While others scroll endlessly, we listen precisely."</em></p>
+        </div>
 
-    <section class="objective">
-      <h2>🎯 Objective</h2>
-      <ul>
-        <li>Detects audience sentiment</li>
-        <li>Measures campaign impact</li>
-        <li>Maps user engagement over time</li>
-        <li>Supports timely decisions through insightful visuals</li>
-      </ul>
-    </section>
+        <!-- Slide 2: Objective -->
+        <div class="content-slide">
+          <h2><i class="fas fa-bullseye"></i> Objective</h2>
+          <ul>
+            <li>Detects audience sentiment</li>
+            <li>Measures campaign impact</li>
+            <li>Maps user engagement over time</li>
+            <li>Supports timely decisions through insightful visuals</li>
+          </ul>
+        </div>
 
-    <section class="core-features">
-      <h2>🧠 Core Features</h2>
-      <ul>
-        <li>✅ Sentiment Analysis: Detects and categorizes sentiment (Positive, Neutral, Negative) from social media content.</li>
-        <li>✅ Campaign Performance Tracking: Evaluates engagement metrics (likes, shares, comments, reach).</li>
-        <li>✅ User Sentiment Timeline: Tracks how an individual user’s sentiment has evolved over time.</li>
-        <li>✅ Trend Mapping: Identifies rising topics, viral hashtags, and frequent keywords.</li>
-        <li>✅ Geographic Heatmaps: Visualizes buzz by region or location.</li>
-        <li>✅ Crisis Alerts: Highlights sudden spikes in negative sentiment for early action.</li>
-      </ul>
-      <p>“It’s not just data. It’s the heartbeat of your brand—visualized.”</p>
-    </section>
+        <!-- Slide 3: Core Features -->
+        <div class="content-slide">
+          <h2><i class="fas fa-brain"></i> Core Features</h2>
+          <ul>
+            <li>Sentiment Analysis: Detects and categorizes sentiment (Positive, Neutral, Negative) from social media content.</li>
+            <li>Campaign Performance Tracking: Evaluates engagement metrics (likes, shares, comments, reach).</li>
+            <li>User Sentiment Timeline: Tracks how an individual user's sentiment has evolved over time.</li>
+            <li>Trend Mapping: Identifies rising topics, viral hashtags, and frequent keywords.</li>
+            <li>Geographic Heatmaps: Visualizes buzz by region or location.</li>
+            <li>Crisis Alerts: Highlights sudden spikes in negative sentiment for early action.</li>
+          </ul>
+          <p><em>"It's not just data. It's the heartbeat of your brand—visualized."</em></p>
+        </div>
 
-    <section class="tech-stack">
-      <h2>🛠️ Tech Stack</h2>
-      <h3>🔹 Backend & BI Tool</h3>
-      <p>IBM Cognos Analytics</p>
-      <p>Built-in Data Modules for ETL (no external Python)</p>
-      <p>Dashboards, Data Modeling, and Exploration Tools used end-to-end</p>
-      
-      <h3>🔹 Frontend (Interface Layer)</h3>
-      <p>While Cognos handles the dashboard core, a supporting UI shell can be crafted with:</p>
-      <ul>
-        <li>HTML5 – Structure and semantic layout</li>
-        <li>CSS3 – Responsive styling, brand-themed colors, animations</li>
-        <li>JavaScript – For embedding interactive elements like tabs or filters before calling Cognos content</li>
-        <li>Cognos iframe Embeds – Embedding dashboards directly into custom web UIs</li>
-      </ul>
-      <p>“Form meets function. A dashboard that looks good and performs even better.”</p>
-    </section>
+        <!-- Slide 4: Tech Stack -->
+        <div class="content-slide">
+          <h2><i class="fas fa-cogs"></i> Tech Stack</h2>
+          <h3><i class="fas fa-server"></i> Backend & BI Tool</h3>
+          <p>IBM Cognos Analytics</p>
+          <p>Built-in Data Modules for ETL (no external Python)</p>
+          <p>Dashboards, Data Modeling, and Exploration Tools used end-to-end</p>
+          
+          <h3><i class="fas fa-desktop"></i> Frontend (Interface Layer)</h3>
+          <p>While Cognos handles the dashboard core, a supporting UI shell can be crafted with:</p>
+          <ul>
+            <li>HTML5 – Structure and semantic layout</li>
+            <li>CSS3 – Responsive styling, brand-themed colors, animations</li>
+            <li>JavaScript – For embedding interactive elements like tabs or filters before calling Cognos content</li>
+            <li>Cognos iframe Embeds – Embedding dashboards directly into custom web UIs</li>
+          </ul>
+          <p><em>"Form meets function. A dashboard that looks good and performs even better."</em></p>
+        </div>
 
-    <section class="hardware-requirements">
-      <h2>⚙️ Hardware Requirements</h2>
-      <h3>🔸 For Developer/Designer System</h3>
-      <ul>
-        <li>CPU: Intel i5 or above</li>
-        <li>RAM: 8GB minimum (16GB recommended for smooth dashboard design)</li>
-        <li>Disk: 10GB+ free storage</li>
-        <li>OS: Windows 10 / macOS / Linux</li>
-        <li>Browser: Chrome / Firefox (latest)</li>
-        <li>Internet: Required for Cognos connection</li>
-      </ul>
-      <h3>🔸 For Server Deployment (Cognos BI Server)</h3>
-      <ul>
-        <li>CPU: 4 cores or more</li>
-        <li>RAM: 16GB+</li>
-        <li>Disk: SSD preferred, 50GB+ space</li>
-        <li>IBM Cognos 11.x installed</li>
-        <li>Optional: Cognos Gateway/Web Server for embedding in enterprise portals</li>
-      </ul>
-    </section>
+        <!-- Slide 5: Hardware Requirements -->
+        <div class="content-slide">
+          <h2><i class="fas fa-hdd"></i> Hardware Requirements</h2>
+          <h3><i class="fas fa-laptop-code"></i> For Developer/Designer System</h3>
+          <ul>
+            <li>CPU: Intel i5 or above</li>
+            <li>RAM: 8GB minimum (16GB recommended for smooth dashboard design)</li>
+            <li>Disk: 10GB+ free storage</li>
+            <li>OS: Windows 10 / macOS / Linux</li>
+            <li>Browser: Chrome / Firefox (latest)</li>
+            <li>Internet: Required for Cognos connection</li>
+          </ul>
+          <h3><i class="fas fa-database"></i> For Server Deployment (Cognos BI Server)</h3>
+          <ul>
+            <li>CPU: 4 cores or more</li>
+            <li>RAM: 16GB+</li>
+            <li>Disk: SSD preferred, 50GB+ space</li>
+            <li>IBM Cognos 11.x installed</li>
+            <li>Optional: Cognos Gateway/Web Server for embedding in enterprise portals</li>
+          </ul>
+        </div>
 
-    <section class="dataset-details">
-      <h2>🔍 Dataset Details</h2>
-      <ul>
-        <li>User ID / Handle</li>
-        <li>Post Timestamp</li>
-        <li>Post Text</li>
-        <li>Sentiment Score / Label</li>
-        <li>Platform Source (e.g., Twitter, Reddit)</li>
-        <li>Likes, Shares, Comments Count</li>
-        <li>Region / Location</li>
-        <li>Campaign Tag or Product ID</li>
-      </ul>
-    </section>
+        <!-- Slide 6: Dataset Details -->
+        <div class="content-slide">
+          <h2><i class="fas fa-search-dollar"></i> Dataset Details</h2>
+          <ul>
+            <li>User ID / Handle</li>
+            <li>Post Timestamp</li>
+            <li>Post Text</li>
+            <li>Sentiment Score / Label</li>
+            <li>Platform Source (e.g., Twitter, Reddit)</li>
+            <li>Likes, Shares, Comments Count</li>
+            <li>Region / Location</li>
+            <li>Campaign Tag or Product ID</li>
+          </ul>
+        </div>
 
-    <section class="use-cases">
-      <h2>🧪 Use Cases</h2>
-      <ul>
-        <li>Brand Sentiment Tracking – For companies like Nike, to adapt messaging in real time</li>
-        <li>Political Campaign Analysis – Understanding voter moods and issue spikes</li>
-        <li>Customer Service Monitoring – For airlines, banks, or retailers</li>
-        <li>Competitor Performance Evaluation – Tracking how rivals are perceived</li>
-        <li>Public Feedback Loops – For product launches, crisis response, or policy changes</li>
-      </ul>
-    </section>
+        <!-- Slide 7: Use Cases -->
+        <div class="content-slide">
+          <h2><i class="fas fa-flask"></i> Use Cases</h2>
+          <ul>
+            <li>Brand Sentiment Tracking – For companies like Nike, to adapt messaging in real time</li>
+            <li>Political Campaign Analysis – Understanding voter moods and issue spikes</li>
+            <li>Customer Service Monitoring – For airlines, banks, or retailers</li>
+            <li>Competitor Performance Evaluation – Tracking how rivals are perceived</li>
+            <li>Public Feedback Loops – For product launches, crisis response, or policy changes</li>
+          </ul>
+        </div>
 
-    <section class="novelty">
-      <h2>🔍 Novelty – What Sets Buzz Tracker Apart?</h2>
-      <ul>
-        <li>💬 User Sentiment Evolution View – See how a single user's perception changed over time.</li>
-        <li>🧠 Multi-Dimensional Filtering – By product, region, campaign, or platform.</li>
-        <li>📊 Embedded Intelligence – No external ML tools required; all within Cognos.</li>
-        <li>🎨 Stylish Frontend Layer – Responsive and brand-themed, giving your data a voice and a vibe.</li>
-        <li>⏳ Historical vs. Real-time Comparisons – Understand how past events shaped today’s buzz.</li>
-      </ul>
-    </section>
+        <!-- Slide 8: Novelty -->
+        <div class="content-slide">
+          <h2><i class="fas fa-star"></i> Novelty – What Sets Buzz Tracker Apart?</h2>
+          <ul>
+            <li>User Sentiment Evolution View – See how a single user's perception changed over time.</li>
+            <li>Multi-Dimensional Filtering – By product, region, campaign, or platform.</li>
+            <li>Embedded Intelligence – No external ML tools required; all within Cognos.</li>
+            <li>Stylish Frontend Layer – Responsive and brand-themed, giving your data a voice and a vibe.</li>
+            <li>Historical vs. Real-time Comparisons – Understand how past events shaped today's buzz.</li>
+          </ul>
+        </div>
 
-    <section class="conclusion">
-      <h2>📌 Conclusion</h2>
-      <p>Buzz Tracker is not a trend-follower—it’s a trend-decoder. Built entirely within the IBM Cognos environment, it unifies data handling, transformation, and visualization in a clean, compelling format. Whether you're a brand strategist, data analyst, or campaign manager, Buzz Tracker puts the voice of your audience—literally—on your screen.</p>
-      <p>“Brands talk. The world responds. Buzz Tracker translates.”</p>
-    </section>
+        <!-- Slide 9: Conclusion -->
+        <div class="content-slide">
+          <h2><i class="fas fa-flag-checkered"></i> Conclusion</h2>
+          <p>Buzz Tracker is not a trend-follower—it's a trend-decoder.<br> Built entirely within the IBM Cognos environment, it unifies data handling, transformation, and visualization in a clean, compelling format.<br> Whether you're a brand strategist, data analyst, or campaign manager, Buzz Tracker puts the voice of your audience—literally—on your screen.</p>
+          <p><em>"Brands talk. The world responds. Buzz Tracker translates."</em></p>
+          
+          <div class="dashboard-button-container">
+            <button class="dashboard-button" onclick="window.location.href='dashboard.html'">
+              Continue to Dashboard <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <button class="slider-nav prev-btn" id="prevBtn">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="slider-nav next-btn" id="nextBtn">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+
+      <!-- Slide Indicators -->
+      <div class="slide-indicators" id="indicators">
+        <!-- Indicators will be generated by JavaScript -->
+      </div>
+    </div>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for logged-in user
+      const currentUser = sessionStorage.getItem('currentUser');
+      const introTitle = document.querySelector('.intro-card h1');
+      
+      if (currentUser) {
+        introTitle.innerHTML = `<i class="fas fa-lightbulb"></i> Welcome to Buzz Tracker, ${currentUser}!`;
+      } else {
+        window.location.href = 'index.html';
+      }
+
+      // Slider functionality
+      const slidesWrapper = document.querySelector('.slides-wrapper');
+      const slides = document.querySelectorAll('.content-slide');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const indicatorsContainer = document.getElementById('indicators');
+      
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      // Create indicators
+      for (let i = 0; i < totalSlides; i++) {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (i === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => goToSlide(i));
+        indicatorsContainer.appendChild(indicator);
+      }
+
+      const indicators = document.querySelectorAll('.indicator');
+
+      // Update slider position and indicators
+      function updateSlider() {
+        slidesWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === currentSlide);
+        });
+
+        // Update navigation buttons
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === totalSlides - 1;
+      }
+
+      // Go to specific slide
+      function goToSlide(slideIndex) {
+        currentSlide = slideIndex;
+        updateSlider();
+      }
+
+      // Next slide
+      nextBtn.addEventListener('click', () => {
+        if (currentSlide < totalSlides - 1) {
+          currentSlide++;
+          updateSlider();
+        }
+      });
+
+      // Previous slide
+      prevBtn.addEventListener('click', () => {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlider();
+        }
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentSlide > 0) {
+          currentSlide--;
+          updateSlider();
+        } else if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+          currentSlide++;
+          updateSlider();
+        }
+      });
+
+      // Auto-play (optional - uncomment to enable)
+      // setInterval(() => {
+      //   if (currentSlide < totalSlides - 1) {
+      //     currentSlide++;
+      //   } else {
+      //     currentSlide = 0;
+      //   }
+      //   updateSlider();
+      // }, 5000);
+
+      // Initialize slider
+      updateSlider();
+    });
+  </script>
 </body>
 </html>

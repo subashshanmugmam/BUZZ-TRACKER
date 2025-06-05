@@ -2,7 +2,7 @@ const users = [
     { username: "naresh", password: "pass123" },
     { username: "saradeesh", password: "buzz321" },
     { username: "sharukhan", password: "sharu007" },
-    { username: "subash", password: "suba999" },
+    { username: "subash", password: "sub123" },
     { username: "periyasamy", password: "peri321" },
     { username: "subikshan", password: "subik123" },
     { username: "sudhan", password: "sud456" },
